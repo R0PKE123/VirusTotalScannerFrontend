@@ -1,0 +1,42 @@
+<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+<ng-container>
+  <c-container [fluid]="true" class="border-bottom px-4">
+    <button
+      [cSidebarToggle]="sidebarId()"
+      aria-label="Toggle sidebar navigation"
+      cHeaderToggler
+      class="btn"
+      style="margin-inline-start: -15px;"
+      toggle="visible"
+    >
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+    <c-header-nav class="ms-auto ms-md-0">
+      <div class="nav-item py-1">
+      </div>
+      <ng-container *ngTemplateOutlet="themeDropdown"/>
+    </c-header-nav>
+  </c-container>
+</ng-container>
+<!--</c-header>-->
+
+<ng-template #themeDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button [caret]="false" aria-label="Open theme picker" cDropdownToggle>
+      <svg [name]="icons()" cIcon size="lg"></svg>
+    </button>
+    <div cDropdownMenu>
+      @for (mode of colorModes; track mode.name) {
+        <button
+          (click)="colorMode.set(mode.name)"
+          [active]="colorMode()===mode.name"
+          cDropdownItem
+          class="d-flex align-items-center"
+        >
+          <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
+          {{ mode.text }}
+        </button>
+      }
+    </div>
+  </c-dropdown>
+</ng-template>

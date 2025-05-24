@@ -1,0 +1,60 @@
+<div *ngIf="errorMessage" class="card border-danger mt-4 shadow-sm">
+  <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+    <strong>Error</strong>
+    <button (click)="clearError()" aria-label="Close" class="btn-close btn-close-white" type="button"></button>
+  </div>
+  <div class="card-body">
+    <p class="card-text mb-0">{{ errorMessage }}</p>
+  </div>
+</div>
+<form (ngSubmit)="onSubmit()" [formGroup]="settingsForm">
+  <!-- VirusTotal API Key -->
+  <div class="mb-3">
+    <label class="form-label" for="apiKey">Your VirusTotal API Key</label>
+    <input
+      class="form-control"
+      formControlName="virustotalApiKey"
+      id="apiKey"
+      required
+      type="text"
+    />
+  </div>
+
+  <!-- Want Big Files Checkbox -->
+  <div class="form-check mb-3">
+    <input
+      class="form-check-input"
+      formControlName="wantBigFiles"
+      id="wantBigFiles"
+      type="checkbox"
+    />
+    <label class="form-check-label" for="wantBigFiles">
+      Upload files bigger than 32 MB
+    </label>
+  </div>
+
+  <!-- Max MB Field (visible only if checkbox is checked) -->
+  <div *ngIf="wantBigFiles.value" class="mb-3">
+    <label class="form-label" for="maxSize">Maximum size to upload (in MB)</label>
+    <input
+      [class.is-invalid]="maximumMbForBigFile.invalid && maximumMbForBigFile.touched"
+      class="form-control"
+      formControlName="maximumMbForBigFile"
+      id="maxSize"
+      max="200"
+      min="0"
+      type="number"
+    />
+    <div *ngIf="maximumMbForBigFile.errors" class="invalid-feedback">
+      <div *ngIf="maximumMbForBigFile.errors['max']">
+        Maximum allowed is 200 MB.
+      </div>
+      <div *ngIf="maximumMbForBigFile.errors['min']">
+        Must be 0 or greater.
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <button class="btn btn-primary" type="submit">Save Settings</button>
+</form>
