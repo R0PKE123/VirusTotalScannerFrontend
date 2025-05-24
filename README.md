@@ -1,2 +1,2 @@
 # What is this project?
-This is a frontend for the Virus Total scanner application, all the documentation will be there
+This is a frontend for the [Virus Total scanner application](https://github.com/R0PKE123/VirusTotalScanner/), all the documentation will be
