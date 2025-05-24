@@ -9,7 +9,7 @@ on:
       - main
       - v5.*
   schedule:
-    - # build runs every weekday at 4:15AM UTC
+    # build runs every weekday at 4:15AM UTC
     - cron: '15 4 * * *'
 
 env:
@@ -20,7 +20,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ ubuntu-latest, windows-latest, macOS-latest ]
+        platform: [windows-latest]
         node-version: [ 22.x ]
     runs-on: ${{ matrix.platform }}
     steps:
